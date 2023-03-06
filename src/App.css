@@ -1,38 +1,105 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Oswald:wght@300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Radio+Canada:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    .light {
+        --primary-color: #40655e;
+        --bg-primary: #FFFFFF;
+        /* button colors */
+        --button-bg-color: #40655e;
+        --button-text-color: #ffffff;
+        --button-bg-hover-color: #232323;
+        --button-text-hover-color: #ffffff;
+        --text-color: #3d3d3d;
+        --item-color: #FFFFFF;
+        --heading-color: #2c2c2c;
+
+        /* footer colors */
+
+        --footer-bg-color: #eef2f5;
+        --footer-heading-color: #2c2c2c;
+        --footer-text-color: #666666;
+        --footer-text-hover-color: #40655e;
+        --footer-bottom-bg-color: #40655e;
+        --footer-bottom-text-color: #ffffff;
+
+        /* font family */
+
+        --font-body-family: Poppins;
+        --font-title-family: Lato;
+    }
+
+    /*
+    .theme-2 {
+
+        --brand-secondary: #40655e;
+        --brand-modify-secondary: rgba(64, 101, 94, 0.3);
+
+        --button-text-hover-modify-color: rgba(255, 255, 255, 0.4);
+        --product-btn-bg-color: #ffffff;
+        --product-icon-color: #232323;
+        --product-btn-bg-hover-color: #40655e;
+        --product-icon-hover-color: #ffffff;
+        --navbar-background-color: #232323;
+        --navbar-text-modify-color: rgba(255, 255, 255, 0.1);
+        --navbar-text-color: #ffffff;
+        --menu-bg-color: #ffffff;
+        --menu-text-modify-color: rgba(102, 102, 102, 0.1);
+        --menu-text-color: #666666;
+        --menu-text-hover-color: #40655e;
+        --sale-bg-color: #7fbc1e;
+        --sale-text-color: #ffffff;
+        --soldout-bg-color: #c92c2c;
+        --soldout-text-color: #ffffff;
+
+        --password-color: #232323;
+        --password-textcolor: #FFFFFF;
+
+        --bg-free-shipping-indicator: #fff3cd;
+        --bg-free-shipping-indicator-eligible: #d4edda;
+        --color-free-shipping-indicator: #856404;
+        --color-free-shipping-indicator-eligible: #155724;
+    }
+} */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+.mobile-nav {
+    @apply fixed top-0 h-full w-[300px] bg-bg_primary border-r border-gray-300 p-4 transition-all duration-500 ease-in-out z-20;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* button css style */
+
+.btn-basic {
+    @apply py-2 px-3 text-sm inline-block uppercase transition-all duration-500;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@media screen and (min-width:992px) {
+    .btn-basic {
+        @apply py-3 px-4;
+    }
 }
 
-.App-link {
-  color: #61dafb;
+.discription-btn {
+    @apply py-2 px-3 overflow-hidden transition-all duration-[1s] font-[500] uppercase relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.discription-btn:hover {
+    color: white;
+}
+
+.discription-btn:after {
+    content: '';
+    transform: rotateY(180deg);
+    @apply w-full h-full absolute top-0 left-0 bg-black origin-[101%_101%] transition-transform duration-[1s];
+}
+
+.discription-btn:hover::after {
+    transform: rotateY(0deg);
+    @apply origin-[0%_0%];
 }
