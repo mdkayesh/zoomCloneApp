@@ -30,6 +30,11 @@ const CartReducer = (state, action) => {
           productImages,
         };
 
+        localStorage.setItem(
+          "cartProducts",
+          JSON.stringify([...state.cartProducts, cartProduct])
+        );
+
         return { ...state, cartProducts: [...state.cartProducts, cartProduct] };
       }
 
@@ -39,6 +44,8 @@ const CartReducer = (state, action) => {
       const updateCart = state.cartProducts.filter((product) => {
         return product.id !== action.payload;
       });
+
+      localStorage.setItem("cartProducts", JSON.stringify(updateCart));
       return { ...state, cartProducts: updateCart };
 
     case "IS_CART_OPEN":
@@ -48,25 +55,16 @@ const CartReducer = (state, action) => {
 
     case "INCREMENT":
       const cartProductInc = INCREMENT(state, action, "cartProducts");
+      localStorage.setItem("cartProducts", JSON.stringify(cartProductInc));
 
       return { ...state, cartProducts: cartProductInc };
 
     case "DECREMENT":
       const cartProductDec = DECREMENT(state, action, "cartProducts");
 
+      localStorage.setItem("cartProducts", JSON.stringify(cartProductDec));
+
       return { ...state, cartProducts: cartProductDec };
-
-    // selected products
-
-    // case "SELECTED":
-    //   const { name, value, id2 } = action.payload;
-
-    //   let selectedItems = {
-    //     size: "",
-    //     color: "",
-    //   };
-
-    //   return { ...state };
 
     default:
       return state;

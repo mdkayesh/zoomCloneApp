@@ -29,7 +29,7 @@ const ModalProduct = () => {
       >
         {singleProduct.map((product) => (
           <div
-            className="inner-modal w-full h-screen z-10 relative overflow-auto py-8 grid grid-cols-2 gap-4 p-4"
+            className="inner-modal w-full h-screen z-10 relative overflow-auto py-8 grid grid-cols-1 md:grid-cols-2 gap-4 p-4"
             key={product.id}
           >
             <ModalLeftCol {...product} openModal={openModal} />

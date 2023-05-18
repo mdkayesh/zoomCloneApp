@@ -5,7 +5,7 @@ import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import { UseProductContext } from "../../../Context/ProductContext";
 import FilterButtons from "./FilterButtons";
 
-const Size = ({ open, setOpen }) => {
+const Size = ({ open, setOpen, updateFilterValue }) => {
   const { sizes } = UseProductContext();
 
   return (
@@ -27,9 +27,11 @@ const Size = ({ open, setOpen }) => {
             >
               <input
                 type="checkbox"
-                name={`${size}-button`}
+                name={"size"}
+                value={size}
                 id={`${size}-button`}
                 className="mr-2 z-[-1] h-4 w-4 invisible [&+_.checkMark]:checked:visible"
+                onChange={(e) => updateFilterValue(e)}
               />
               <CgCheck className="checkMark invisible text-primary font-semibold absolute left-0 h-5 w-5 bg-white" />
               <MdCheckBoxOutlineBlank className="h-5 w-5 absolute left-0 text-gray-400" />

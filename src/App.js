@@ -19,6 +19,9 @@ import Category from "./components/pages/Category/Category";
 import Blog from "./components/pages/Blog/Blog";
 import SingleProductPage from "./components/pages/SingleProductPage/SingleProductPage";
 import CartPage from "./components/pages/CartPage/CartPage";
+import Dashboard from "./components/pages/AdminPanel/Dashboard";
+import Orders from "./components/pages/AdminPanel/Orders";
+import SignUp from "./components/pages/SignUp/SIgnUp";
 
 function App() {
   document.documentElement.classList.add("light");
@@ -30,8 +33,11 @@ function App() {
         <Route path="admin-panel" element={<AdminPanel />}>
           <Route path="add-product" element={<AddProduct />} />
           <Route path="products" element={<AllProducts />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="orders" element={<Orders />} />
         </Route>
         <Route path="contact" element={<Contact />} />
+        <Route path="signUp" element={<SignUp />} />
         <Route path="collection" element={<Collection />} />
         <Route path="about" element={<About />} />
         <Route path="category" element={<Category />} />

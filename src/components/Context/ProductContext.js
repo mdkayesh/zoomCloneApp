@@ -33,20 +33,22 @@ const ProductContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(productReducer, initialValue);
 
   useEffect(() => {
-    onSnapshot(productsRef, (snapshot) => {
-      const products = [];
-      snapshot.docs.forEach((doc) =>
-        products.unshift({ ...doc.data(), id: doc.id })
-      );
-      dispatch({ type: "GET_PRODUCTS", payload: products });
-      dispatch({ type: "GET_FEATURED" });
-      dispatch({ type: "GET_COLORS" });
-      dispatch({ type: "GET_SIZES" });
-    });
+    onSnapshot(
+      productsRef,
+      (snapshot) => {
+        const products = [];
+        snapshot.docs.forEach((doc) =>
+          products.unshift({ ...doc.data(), id: doc.id })
+        );
+        dispatch({ type: "GET_PRODUCTS", payload: products });
+        dispatch({ type: "GET_FEATURED" });
+        dispatch({ type: "GET_COLORS" });
+        dispatch({ type: "GET_SIZES" });
+      },
+      (err) => console.log(err)
+    );
 
-    return () => {
-      return;
-    };
+    return () => null;
   }, []);
 
   // get home featured products
@@ -99,7 +101,10 @@ const ProductContextProvider = ({ children }) => {
   };
 
   const searchProducts = (e) => {
-    dispatch({ type: "SEARCH_PRODUCTS", payload: e.target.value });
+    dispatch({
+      type: "SEARCH_PRODUCTS",
+      payload: e.target.value,
+    });
   };
 
   // quantiy functions for products

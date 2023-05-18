@@ -9,6 +9,7 @@ const Context = createContext();
 
 const initialValue = {
   blogPost: [],
+  isSidebarShow: false,
 };
 
 const BlogContextProvider = ({ children }) => {
@@ -27,7 +28,15 @@ const BlogContextProvider = ({ children }) => {
     });
   }, []);
 
-  return <Context.Provider value={{ ...state }}>{children}</Context.Provider>;
+  const setIsSidebarShow = () => {
+    dispatch({ type: "IS_SIDEBAR_SHOW", payload: !state.isSidebarShow });
+  };
+
+  return (
+    <Context.Provider value={{ ...state, setIsSidebarShow }}>
+      {children}
+    </Context.Provider>
+  );
 };
 
 const UseBlogContext = () => {

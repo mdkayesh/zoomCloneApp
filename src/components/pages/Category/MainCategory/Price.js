@@ -1,7 +1,7 @@
 import React from "react";
 import { BsArrowLeft } from "react-icons/bs";
 
-const Price = ({ open, setOpen }) => {
+const Price = ({ open, setOpen, updateFilterValue }) => {
   return (
     <div
       className={`${
@@ -18,10 +18,11 @@ const Price = ({ open, setOpen }) => {
           <span className="mr-2">$</span>
           <input
             type="number"
-            name="from-mobile"
+            name="fromPrize"
             id="from-mobile"
             className="w-[100%] outline-none border mr-3 pb-1 pt-3  px-2 focus:border-primary [&+_label]:focus:text-[10px] [&+_label]:focus:top-0 [&+_label]:focus:left-5 text-sm"
             min={0}
+            onChange={updateFilterValue}
           />
           <label
             className="absolute top-2 text-gray-500 capitalize left-7 transition-all duration-300"
@@ -34,10 +35,11 @@ const Price = ({ open, setOpen }) => {
           <span className="mr-2">$</span>
           <input
             type="number"
-            name="to-mobile"
+            name="toPrize"
             id="to-mobile"
             className="w-[100%] outline-none border mr-3 pb-1 pt-3  px-2 focus:border-primary [&+_label]:focus:text-[10px] [&+_label]:focus:top-0 [&+_label]:focus:left-5 text-sm"
             min={0}
+            onChange={updateFilterValue}
           />
           <label
             className="absolute top-2 text-gray-500 capitalize left-7 transition-all duration-300"

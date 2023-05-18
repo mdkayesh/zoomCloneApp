@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { BsStarFill } from "react-icons/bs";
 import validationSchemas from "./schemas";
 import { db } from "../../Firebase/Firebase";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
 const ReviewForm = ({
   setReviewIsOpen,

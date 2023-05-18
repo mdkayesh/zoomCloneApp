@@ -9,6 +9,8 @@ const SearchFilterProducts = () => {
   const searchDrop = useRef(null);
 
   useEffect(() => {
+    setIsOpen(isSearch);
+
     document.documentElement.addEventListener("click", (e) => {
       if (e.target.closest("#searchDrop") === searchDrop.current) {
         setIsOpen(true);
@@ -16,12 +18,14 @@ const SearchFilterProducts = () => {
         setIsOpen(false);
       }
     });
-  }, []);
+
+    return () => null;
+  }, [isSearch]);
 
   return (
     <ul
       className={`${
-        isSearch || isOpen
+        isSearch && isOpen
           ? "opacity-100 mt-0 visible"
           : "opacity-0 mt-6 invisible"
       } absolute top-[75px] left-[-30%] max-h-[70vh] bg-white min-w-[300px] border px-3 py-2 flex flex-col gap-3 overflow-auto shadow-lg transition-all duration-500 z-20 lg:top-[130%]`}
@@ -29,15 +33,12 @@ const SearchFilterProducts = () => {
       id="searchDrop"
     >
       {filterProducts.map((product) => (
-        <Link
-          to={"single-product"}
-          onClick={() => editSingleProduct(product.id)}
-          key={product.id}
-        >
-          <motion.li
-            className="flex gap-4 cursor-pointer bg-transparent [&_.hoverImg]:hover:opacity-[1] [&_.mainImg]:hover:opacity-[0]"
+        <motion.li key={product.id} layout>
+          <Link
+            to={"single-product"}
+            onClick={() => editSingleProduct(product.id)}
             key={product.id}
-            layout
+            className="flex gap-4 cursor-pointer bg-transparent [&_.hoverImg]:hover:opacity-100 [&_.mainImg]:hover:opacity-0"
           >
             <div className="img relative w-[35%] pb-[35%] border md:w-1/3 md:pb-[25%]">
               <img
@@ -63,8 +64,8 @@ const SearchFilterProducts = () => {
                 <span className="font-semibold">${product.productPrize}</span>
               </p>
             </div>
-          </motion.li>
-        </Link>
+          </Link>
+        </motion.li>
       ))}
     </ul>
   );

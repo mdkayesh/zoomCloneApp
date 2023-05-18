@@ -1,9 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
-import { CgShoppingCart, CgProfile } from "react-icons/cg";
+import { CgShoppingCart } from "react-icons/cg";
 import { TbWallpaper } from "react-icons/tb";
 import { BiMessageSquareAdd } from "react-icons/bi";
+import { UseBlogContext } from "../../Context/BlogContext";
+import { BsLink45Deg } from "react-icons/bs";
 
 const sidebarLinks = [
   {
@@ -12,7 +14,7 @@ const sidebarLinks = [
     icon: <AiOutlineHome className="mr-2" />,
   },
   {
-    title: "Products",
+    title: "All Products",
     url: "products",
     icon: <CgShoppingCart className="mr-2" />,
   },
@@ -21,32 +23,39 @@ const sidebarLinks = [
     url: "orders",
     icon: <TbWallpaper className="mr-2" />,
   },
-  {
-    title: "Customers",
-    url: "customers",
-    icon: <CgProfile className="mr-2" />,
-  },
+
   {
     title: "Add Products",
     url: "add-product",
     icon: <BiMessageSquareAdd className="mr-2" />,
   },
+  {
+    title: "Storefront!",
+    url: "/",
+    icon: <BsLink45Deg className="mr-2" />,
+  },
 ];
 
 const SideBar = () => {
+  const { isSidebarShow, setIsSidebarShow } = UseBlogContext();
+
   return (
-    <div className="py-3 hidden bg-white border-r border-gray-200 fixed top-0 left-0 h-[100vh] shadow-lg w-[20%] pt-[90px] overflow-auto lg:block">
+    <div
+      className={`${
+        isSidebarShow ? "left-0" : "-left-full"
+      } [&_.active]:bg-primary [&_.active]:text-white py-3 bg-white border-r border-gray-200 fixed top-0 h-[100vh] shadow-lg w-[60%]  overflow-auto pt-[90px] z-10 max-w-[300px] lg:left-0 lg:w-[20%] lg:block transition-all`}
+    >
       <nav>
         <ul>
           {sidebarLinks.map((link, index) => (
-            <li className="" key={index}>
-              <Link
+            <li className="" key={index} onClick={setIsSidebarShow}>
+              <NavLink
                 to={link.url}
-                className="flex items-center px-3 py-2 hover:text-btn_text hover:bg-btn_bg_hover hover:pl-4 transition-all duration-500"
+                className="flex items-center px-3 py-2 hover:text-btn_text hover:bg-primary hover:pl-4 transition-all duration-500"
               >
                 {link.icon}
                 {link.title}
-              </Link>
+              </NavLink>
             </li>
           ))}
         </ul>

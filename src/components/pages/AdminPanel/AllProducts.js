@@ -16,30 +16,34 @@ import { storage } from "../../Firebase/Firebase";
 import { BiImageAdd } from "react-icons/bi";
 import { kids, men, women } from "../../Header/DeskDrop";
 import { TiDeleteOutline } from "react-icons/ti";
+import { AiOutlineCheck } from "react-icons/ai";
+
+/* ==========================================================================================
+    INTENTIONALY I HAVEN'T USE ENY THIRD PARTY LIBRARY TO HANDLE FORMS FOR PRACTICE PURPOSE
+ ============================================================================================*/
 
 const AllProducts = () => {
   const { products, editSingleProduct, singleProduct } = UseProductContext();
   const [uploadImg, setuploadImg] = useState(null);
   const [uploadHoverImg, setHoverImg] = useState(null);
   const [message, setMessage] = useState(null);
-  const [colors, setColors] = useState([
-    {
-      id: "color1",
-      color: null,
-    },
-    {
-      id: "color2",
-      color: null,
-    },
-    {
-      id: "color3",
-      color: null,
-    },
-    {
-      id: "color4",
-      color: null,
-    },
-  ]);
+  const [error, setError] = useState("");
+
+  const colors = [
+    "#ffffff",
+    "#000000",
+    "#F2F12F",
+    "#EE9102",
+    "#F12511",
+    "#9E1847",
+    "#7F01A7",
+    "#3B019C",
+    "#0243F1",
+    "#038BC3",
+    "#61A82F",
+    "#C5DD29",
+  ];
+  // const [colors, setColors] = useState();
   const [UpdateProductData, setUpdateProductData] = useState({
     category: [],
     productImages: [],
@@ -64,7 +68,7 @@ const AllProducts = () => {
     if (uploadImg === null) {
       return;
     } else {
-      uploadImg.map((img) => {
+      uploadImg.forEach((img) => {
         if (img.name.includes(" ")) {
           return alert("Image name must have without space");
         } else {
@@ -98,7 +102,7 @@ const AllProducts = () => {
     if (uploadHoverImg === null) {
       return;
     } else {
-      uploadHoverImg.map((img) => {
+      uploadHoverImg.forEach((img) => {
         if (img.name.includes(" ")) {
           return alert("image name must have without space");
         } else {
@@ -163,28 +167,23 @@ const AllProducts = () => {
     setUpdateProductData({ ...UpdateProductData, category });
   };
 
-  const colorPicker = (id, e) => {
-    const upDatedColors = colors.map((color) => {
-      if (color.id === id) {
-        return { ...color, color: e.target.value };
-      }
-      return color;
+  // select colors
+  const colorPicker = (e) => {
+    const selectedColors = [...UpdateProductData.color];
+
+    const index = selectedColors.indexOf(e.target.value);
+
+    if (index === -1 && selectedColors.length < 4) {
+      selectedColors.push(e.target.value);
+    } else {
+      selectedColors.splice(index, 1);
+    }
+
+    setUpdateProductData({
+      ...UpdateProductData,
+      color: [...new Set(selectedColors)],
     });
-    setColors(upDatedColors);
-
-    // make array from color pickers
-    const coloArr = [];
-
-    colors.forEach((color) => {
-      if (color.color) {
-        coloArr.push(color.color);
-      }
-      return;
-    });
-
-    setUpdateProductData({ ...UpdateProductData, color: coloArr });
   };
-
   // delete the image
 
   const deleteImage = (Url, imgName, productImg) => {
@@ -218,14 +217,6 @@ const AllProducts = () => {
       return;
     });
   };
-
-  useEffect(() => {
-    let updateColor = colors.map((color, index) => {
-      return { ...color, color: UpdateProductData.color[index] };
-    });
-
-    setColors(updateColor);
-  }, [formIsOpen]);
 
   // update the document
 
@@ -294,9 +285,10 @@ const AllProducts = () => {
             deleteImage(url, "hoverImgName", "hoverImg");
           });
           alert("sucessfully deleted");
+          setformIsOpen(false);
         })
         .catch((err) => {
-          console.log(err.message);
+          setError(err.message);
         });
     }
     return;
@@ -312,7 +304,7 @@ const AllProducts = () => {
           <div key={product.id} className="relative">
             <ProductStyle1 {...product} />
             <div
-              className="edit-product absolute top-3 left-3 bg-btn_bg text-btn_text text-4xl p-2 cursor-pointer transition-all duration-500 hover:bg-btn_bg_hover hover:text-btn_text_hover"
+              className="edit-product absolute top-3 left-3 text-white bg-slate-800 text-4xl p-1 cursor-pointer transition-all duration-500"
               onClick={() => {
                 setformIsOpen(!formIsOpen);
                 editSingleProduct(product.id);
@@ -336,9 +328,11 @@ const AllProducts = () => {
             key={product.id}
             onSubmit={(e) => updateDocument(e, product.id)}
           >
-            <div className="delete-btn flex justify-end">
+            <div className="delete-btn flex justify-between items-center">
+              <p className="text-red-600">{error}</p>
               <button
                 title="delete the product"
+                type="button"
                 className="deleteProduct btn-basic border border-red-600 hover:text-white hover:bg-red-600"
                 onClick={() => deleteProduct(product.id)}
               >
@@ -377,7 +371,7 @@ const AllProducts = () => {
                       <img
                         src={url}
                         alt="pruduct-images"
-                        className="w-full h-full"
+                        className="w-full h-full object-cover"
                       />
                       <div
                         className="deleteImg absolute right-0 top-0 bg-red-700 text-white rounded-full text-2xl cursor-pointer"
@@ -423,7 +417,7 @@ const AllProducts = () => {
                       <img
                         src={url}
                         alt="pruduct-images"
-                        className="w-full h-full"
+                        className="w-full h-full object-cover"
                       />
                       <div
                         className="deleteImg absolute right-0 top-0 bg-red-700 text-white rounded-full text-2xl cursor-pointer"
@@ -564,16 +558,24 @@ const AllProducts = () => {
 
             {/* select colors */}
             <label>Colors(max-4)</label>
-            <div className="flex gap-4">
+            <div className="flex gap-4 flex-wrap">
               {colors.map((color, index) => (
-                <div key={index}>
+                <div
+                  className={`${
+                    UpdateProductData.color.includes(color)
+                      ? "border border-primary scale-125 [&_svg]:block"
+                      : "border-none [&_svg]:hidden"
+                  } relative rounded-full overflow-hidden cursor-pointer transition-all h-8 w-8 shadow-[2px_2px_10px_rgba(0,_0,_0,_0.3)]`}
+                  key={index}
+                  style={{ backgroundColor: color }}
+                >
+                  <AiOutlineCheck className="absolute font-bold fill-slate-300 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                   <input
-                    type="color"
-                    name="colorpicker"
-                    id={`update${color.id}`}
-                    className={`cursor-pointer`}
-                    onChange={(e) => colorPicker(color.id, e)}
-                    value={color.color ? color.color : "#F8FAFC"}
+                    type="checkbox"
+                    name="colorPicker"
+                    value={color}
+                    className="w-full h-full appearance-none opacity-0 cursor-pointer"
+                    onChange={colorPicker}
                   />
                 </div>
               ))}

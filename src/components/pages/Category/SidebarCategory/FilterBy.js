@@ -13,7 +13,7 @@ const FilterBy = () => {
   };
 
   return (
-    <div className="filter-by mt-5 border">
+    <div className="filter-by mt-5 border hidden lg:block">
       <div>
         <h3 className="text-lg capitalize px-3 py-2 bg-[#F5F5F5] text-gray-600">
           Fiter By

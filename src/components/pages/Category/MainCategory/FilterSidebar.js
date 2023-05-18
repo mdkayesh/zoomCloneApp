@@ -7,8 +7,10 @@ import Availability from "./Availability";
 import Price from "./Price";
 import Colors from "./Colors";
 import Size from "./Size";
+import { UseProductContext } from "../../../Context/ProductContext";
 
 const FilterSidebar = ({ isOpen, setIsOpen }) => {
+  const { updateFilterValue, sortingProducts } = UseProductContext();
   const [open, setOpen] = useState(null);
 
   const handleClick = (index) => {
@@ -77,9 +79,10 @@ const FilterSidebar = ({ isOpen, setIsOpen }) => {
                   Sort By
                 </label>
                 <select
-                  name="sort-btn"
+                  name="sort"
                   id="sort-btn"
                   className="bg-[#FAFAFA] py-3 px-4 outline-none appearance-none cursor-pointer border w-[80%]"
+                  onChange={sortingProducts}
                 >
                   <option value="featured">Featured</option>
                   <option value="best-selling">Best Selling</option>
@@ -93,22 +96,38 @@ const FilterSidebar = ({ isOpen, setIsOpen }) => {
                 <GrFormDown className="absolute top-[50%] right-2 translate-y-[-50%] text-xl" />
               </div>
               {/* buttons */}
-              <FilterButtons />
+              <FilterButtons setIsOpen={setIsOpen} />
             </div>
 
             {/* nested */}
 
-            <Availability open={open} setOpen={setOpen} />
-            <Price open={open} setOpen={setOpen} />
-            <Colors open={open} setOpen={setOpen} />
-            <Size open={open} setOpen={setOpen} />
+            <Availability
+              open={open}
+              setOpen={setOpen}
+              updateFilterValue={updateFilterValue}
+            />
+            <Price
+              open={open}
+              setOpen={setOpen}
+              updateFilterValue={updateFilterValue}
+            />
+            <Colors
+              open={open}
+              setOpen={setOpen}
+              updateFilterValue={updateFilterValue}
+            />
+            <Size
+              open={open}
+              setOpen={setOpen}
+              updateFilterValue={updateFilterValue}
+            />
           </div>
         </div>
       </div>
       <div
         className={`${
           isOpen ? "opacity-[1] visible" : "invisible opacity-0"
-        } fixed top-0 left-0 h-full w-full bg-black/30 transition-all duration-500`}
+        } fixed top-0 left-0 h-full w-full bg-black/30 transition-all duration-500 z-10`}
         onClick={() => setIsOpen(false)}
       ></div>
     </>

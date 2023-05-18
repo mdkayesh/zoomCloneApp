@@ -1,10 +1,9 @@
 import React from "react";
 import ProductStyle1 from "../AdminPanel/ProductStyle1";
-import { useRef, useEffect, useState } from "react";
+import { useState } from "react";
 import { UseProductContext } from "../../Context/ProductContext";
 import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
 import WindowWidth from "../../WindowWidth";
-import { motion } from "framer-motion";
 
 const Slider3 = () => {
   const { products } = UseProductContext();

@@ -83,7 +83,7 @@ const ModalRightCol = ({
         <span
           className="block w-[20%] h-full bg-[] rounded-3xl mt-1"
           style={{
-            background: `rgb(250,105,24)`,
+            backgroundColor: `rgb(250,105,24)`,
             background: `linear-gradient(90deg, rgba(250,105,24,1) 34%, rgba(239,198,38,1) 100%, rgba(255,255,255,1) 100%)`,
           }}
         ></span>

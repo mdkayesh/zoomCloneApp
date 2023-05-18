@@ -159,12 +159,7 @@ const productReducer = (state, action) => {
         product.productName.toLowerCase().includes(action.payload.toLowerCase())
       );
 
-      let isSearch = false;
-      if (action.payload) {
-        isSearch = true;
-      } else {
-        isSearch = false;
-      }
+      let isSearch = action.payload;
 
       return { ...state, filterProducts: searchProducts, isSearch };
 

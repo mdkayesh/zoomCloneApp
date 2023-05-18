@@ -25,7 +25,7 @@ const Home = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="container px-4 grid grid-cols-1 gap-4 md:grid-cols-3 pb-20"
+        className="container px-4 grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-3 pb-20"
       >
         {/* item1 */}
         <Link to={""}>

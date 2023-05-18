@@ -11,11 +11,13 @@ import { UseProductContext } from "../Context/ProductContext";
 import SearchFilterProducts from "./SearchFilterProducts";
 import { UseCartContext } from "../Context/CartContext";
 import LoginForm from "./LoginForm";
+import { useAuthContext } from "../Context/AuthContext";
 
 const Navbar = () => {
   // context
   const { searchProducts } = UseProductContext();
   const { cartOpen } = UseCartContext();
+  const { currentUser, logOut } = useAuthContext();
 
   // state
 
@@ -107,18 +109,24 @@ const Navbar = () => {
         {/* search */}
         <div className="flex">
           <div className="search hidden relative lg:block">
-            <input
-              className="border px-3 py-1.5 rounded-full outline-none"
-              type="search"
-              name="search"
-              id="search"
-              placeholder="Search..."
-              onChange={searchProducts}
-            />
-            <AiOutlineSearch className="absolute top-[50%] translate-y-[-50%] right-3 font-bold cursor-pointer text-lg" />
-            <SearchFilterProducts />
+            <form action="">
+              <input
+                className="border px-6 py-1.5 rounded-full outline-none"
+                type="search"
+                name="search"
+                id="search"
+                placeholder="Search..."
+                onChange={searchProducts}
+              />
+              <AiOutlineSearch className="absolute top-[50%] translate-y-[-50%] right-3 font-bold cursor-pointer text-lg" />
+              <SearchFilterProducts />
+            </form>
           </div>
           <div className="flex items-center ml-2">
+            {loginOpen && (
+              <div className="fixed top-0 left-0 w-full h-full bg-[#00000059] md:hidden"></div>
+            )}
+
             <div className="relative" ref={logIn} id="login">
               <BsPerson
                 id="loginBtn"
@@ -126,14 +134,53 @@ const Navbar = () => {
                 onClick={() => handleClick()}
               />
               <div
-                className={`absolute left-[-260px] top-[175%] transition-all duration-400 border border-gray-300 p-4 min-w-[300px] bg-white text-center shadow-lg z-20 ${
+                className={`fixed left-1/2 top-1/2 w-[80vw] -translate-x-1/2 -translate-y-1/2 transition-transform duration-400 border border-gray-300 p-4 bg-white text-center shadow-lg z-20 md:absolute md:left-[-300px] md:top-full md:-translate-x-0 md:-translate-y-0 md:max-w-[300px] ${
                   loginOpen
-                    ? "animate-[scaleUp_0.4s_ease-in-out]"
+                    ? "scale-100 opacity-100 md:animate-[scaleUp_0.4s_ease-in-out]"
                     : "scale-0 opacity-0"
                 }`}
               >
-                <h2 className="font-[500] text-xl">Login</h2>
-                <LoginForm />
+                {!currentUser ? (
+                  <>
+                    <h2 className="font-[500] text-xl">Login</h2>
+                    <LoginForm />
+                  </>
+                ) : (
+                  <div className="userinfo">
+                    <div className="flex gap-4 items-center justify-center">
+                      <img
+                        src={currentUser.photoURL}
+                        alt="userImage"
+                        className="min-w-[50px] max-w-[60px] rounded-full"
+                      />
+                      <h1 className="text-lg font-semibold">
+                        {currentUser.displayName}
+                      </h1>
+                    </div>
+
+                    {currentUser.uid === process.env.REACT_APP_ADMIN_ID && (
+                      <p className="text-green-500 mt-3">Admin</p>
+                    )}
+                    <div className="flex justify-between">
+                      {currentUser.uid === process.env.REACT_APP_ADMIN_ID && (
+                        <Link
+                          to={"/admin-panel/dashboard"}
+                          className="btn-basic mt-8 text-btn_text bg-btn_bg hover:bg-btn_bg_hover hover:text-btn_text_hover"
+                        >
+                          Admin Panel
+                        </Link>
+                      )}
+
+                      <button
+                        type="button"
+                        className="btn-basic mt-8 text-btn_text bg-btn_bg hover:bg-btn_bg_hover hover:text-btn_text_hover"
+                        onClick={logOut}
+                      >
+                        log Out
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             <div>

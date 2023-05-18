@@ -1,7 +1,11 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useFormik } from "formik";
 import React from "react";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
+import { auth } from "../Firebase/Firebase";
+import { FcGoogle } from "react-icons/fc";
+import { useAuthContext } from "../Context/AuthContext";
 
 const validationSchema = Yup.object({
   email: Yup.string().email("example@gmail.com").required("email is required"),
@@ -11,6 +15,7 @@ const validationSchema = Yup.object({
 });
 
 const LoginForm = () => {
+  const { loginWithGoogle } = useAuthContext();
   const { handleBlur, handleChange, errors, handleSubmit, touched } = useFormik(
     {
       initialValues: {
@@ -18,8 +23,12 @@ const LoginForm = () => {
         password: "",
       },
       validationSchema,
-      onSubmit: (values) => {
-        console.log(values);
+      onSubmit: async (values) => {
+        try {
+          await signInWithEmailAndPassword(auth, values.email, values.password);
+        } catch (err) {
+          console.log(err.message);
+        }
       },
     }
   );
@@ -69,15 +78,32 @@ const LoginForm = () => {
             Forgot your password?
           </Link>
         </div>
+
+        {/* sign in with google */}
+
+        <button
+          type="button"
+          className="w-full py-2 px-3 rounded-lg bg-slate-800 text-gray-200 flex gap-4 items-center mb-4"
+          onClick={loginWithGoogle}
+        >
+          <span>
+            <FcGoogle />
+          </span>
+          <span>Log in with google</span>
+        </button>
+
         <button
           type="submit"
           className="btn-basic w-full bg-btn_bg text-btn_text hover:text-btn_text_hover hover:bg-btn_bg_hover"
         >
           Login
         </button>
-        <button className="btn-basic w-full border border-gray-200 mt-4 hover:text-btn_text hover:bg-btn_bg">
+        <Link
+          to={"signUp"}
+          className="btn-basic w-full border border-gray-200 mt-4 hover:text-btn_text hover:bg-btn_bg"
+        >
           Create Account
-        </button>
+        </Link>
       </div>
     </form>
   );

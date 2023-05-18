@@ -33,39 +33,6 @@
         --font-body-family: Poppins;
         --font-title-family: Lato;
     }
-
-    /*
-    .theme-2 {
-
-        --brand-secondary: #40655e;
-        --brand-modify-secondary: rgba(64, 101, 94, 0.3);
-
-        --button-text-hover-modify-color: rgba(255, 255, 255, 0.4);
-        --product-btn-bg-color: #ffffff;
-        --product-icon-color: #232323;
-        --product-btn-bg-hover-color: #40655e;
-        --product-icon-hover-color: #ffffff;
-        --navbar-background-color: #232323;
-        --navbar-text-modify-color: rgba(255, 255, 255, 0.1);
-        --navbar-text-color: #ffffff;
-        --menu-bg-color: #ffffff;
-        --menu-text-modify-color: rgba(102, 102, 102, 0.1);
-        --menu-text-color: #666666;
-        --menu-text-hover-color: #40655e;
-        --sale-bg-color: #7fbc1e;
-        --sale-text-color: #ffffff;
-        --soldout-bg-color: #c92c2c;
-        --soldout-text-color: #ffffff;
-
-        --password-color: #232323;
-        --password-textcolor: #FFFFFF;
-
-        --bg-free-shipping-indicator: #fff3cd;
-        --bg-free-shipping-indicator-eligible: #d4edda;
-        --color-free-shipping-indicator: #856404;
-        --color-free-shipping-indicator-eligible: #155724;
-    }
-} */
 }
 
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { UseProductContext } from "../../../Context/ProductContext";
 import ProductStyle1 from "../../AdminPanel/ProductStyle1";
 import { AnimatePresence, motion } from "framer-motion";

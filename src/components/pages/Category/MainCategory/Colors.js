@@ -3,8 +3,8 @@ import { BsArrowLeft } from "react-icons/bs";
 import { UseProductContext } from "../../../Context/ProductContext";
 import FilterButtons from "./FilterButtons";
 
-const Colors = ({ open, setOpen }) => {
-  const { colors, getColorFiltered } = UseProductContext();
+const Colors = ({ open, setOpen, updateFilterValue }) => {
+  const { colors } = UseProductContext();
   const [colorActive, setColorActive] = useState(null);
 
   const colorClick = (index) => {
@@ -32,9 +32,11 @@ const Colors = ({ open, setOpen }) => {
             } border h-6 w-6 mr-3 transition-all duration-300`}
             style={{ backgroundColor: color }}
             key={index}
-            onClick={() => {
+            name="color"
+            value={color}
+            onClick={(e) => {
               colorClick(index);
-              getColorFiltered(color);
+              updateFilterValue(e);
             }}
           ></button>
         ))}

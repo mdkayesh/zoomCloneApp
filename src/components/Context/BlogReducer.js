@@ -3,6 +3,9 @@ const blogReducer = (state, action) => {
     case "GET_BLOG_DATA":
       return { ...state, blogPost: [...action.payload] };
 
+    case "IS_SIDEBAR_SHOW":
+      return { ...state, isSidebarShow: action.payload };
+
     default:
       return state;
   }

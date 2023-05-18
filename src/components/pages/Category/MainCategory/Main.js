@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CategoryProducts from "./CategoryProducts";
 import SortBy from "./SortBy";
 import { category } from "../../../Header/DeskDrop";
+import WindowWidth from "../../../WindowWidth";
 
 const Main = ({ activeIndx }) => {
   const [col, setCol] = useState(2);
@@ -9,6 +10,14 @@ const Main = ({ activeIndx }) => {
   const handleCol = (num) => {
     setCol(num);
   };
+
+  const width = WindowWidth();
+
+  useEffect(() => {
+    const cols = width >= 991 ? 4 : width >= 768 ? 3 : 2;
+
+    setCol(cols);
+  }, [width]);
 
   return (
     <section className="category-main">

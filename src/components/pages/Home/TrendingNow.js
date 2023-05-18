@@ -22,7 +22,7 @@ const TrendingNow = () => {
         We have thousands of new accessories for men and women in zoom store.
       </SectionTitle>
       <motion.div
-        className="flex gap-3 flex-wrap justify-center mt-5"
+        className="flex gap-3 flex-wrap justify-center mt-5 overflow-hidden"
         variants={container}
         initial="hidden"
         whileInView="visible"
@@ -82,9 +82,9 @@ const TrendingNow = () => {
 
       {/* products */}
       <div className="products">
-        <div className="grid grid-cols-1 gap-x-5 gap-y-8 mt-10 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-x-5 gap-y-8 mt-10 md:grid-cols-3 lg:grid-cols-4">
           <AnimatePresence>
-            {homeProducts.slice(-3).map((product, index) => (
+            {homeProducts.slice(-4).map((product, index) => (
               <motion.div
                 variants={scale}
                 initial="hidden"

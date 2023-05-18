@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { BsChevronDown } from "react-icons/bs";
 import { UseProductContext } from "../../../Context/ProductContext";
 import { category } from "../../../Header/DeskDrop";
 
 const ByCategories = ({ activeIndx, handleClick }) => {
-  const { getFilteredProducts, updateFilterValue } = UseProductContext();
+  const { updateFilterValue } = UseProductContext();
 
   return (
     <div className="by-categories border">
@@ -15,7 +15,7 @@ const ByCategories = ({ activeIndx, handleClick }) => {
         <div className="py-2 px-3">
           {category.map((item, index) => (
             <div className="category-item" key={index}>
-              <h4 className="">
+              <h4>
                 <button
                   className="uppercase text-base py-1 flex justify-between items-center cursor-pointer w-full outline-none"
                   value={item.name}

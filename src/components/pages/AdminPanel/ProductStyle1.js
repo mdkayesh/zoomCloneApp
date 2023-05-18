@@ -67,7 +67,7 @@ const ProductStyle1 = ({
             )}
             <span className="font-[500] text-base">${productPrize}</span>
           </p>
-          <div className="icons flex gap-2 justify-center mt-2">
+          <div className="icons flex flex-col gap-2 justify-center mt-2 md:flex-row">
             <button
               className="btn-basic text-btn_text bg-btn_bg hover:text-btn_text_hover hover:bg-btn_bg_hover md:hidden"
               onClick={() => {
@@ -103,7 +103,7 @@ const ProductStyle1 = ({
               <AiOutlineShoppingCart />
             </span>
             <span
-              className="text-xl p-1.5 border border-gray-300 hover:bg-btn_bg hover:text-btn_text transition-all duration-300 cursor-pointer"
+              className="text-xl flex justify-center items-center p-1.5 border border-gray-300 hover:bg-btn_bg hover:text-btn_text transition-all duration-300 cursor-pointer"
               onClick={() => {
                 openModal();
                 editSingleProduct(id);
@@ -111,7 +111,7 @@ const ProductStyle1 = ({
             >
               <FaEye />
             </span>
-            <span className="text-xl p-1.5 border border-gray-300 hover:bg-btn_bg hover:text-btn_text transition-all duration-300 cursor-pointer">
+            <span className="text-xl flex justify-center items-center p-1.5 border border-gray-300 hover:bg-btn_bg hover:text-btn_text transition-all duration-300 cursor-pointer">
               <AiOutlineHeart />
             </span>
           </div>

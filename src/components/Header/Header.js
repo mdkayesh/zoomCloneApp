@@ -19,7 +19,7 @@ const Header = () => {
     if (window.scrollY < scrollY) {
       setClassName("top-0");
     } else {
-      setClassName("top-[-100vh]");
+      setClassName("-top-full");
     }
   });
 
@@ -28,9 +28,9 @@ const Header = () => {
       <header
         className={`${
           location.pathname.includes("admin-panel") ? "hidden" : "block"
-        } px-4 z-20 bg-bg_primary border-b ${
+        } sticky w-full px-4 z-20 bg-bg_primary border-b ${
           scrollY > 250
-            ? `transition-all duration-[1s] ease fixed w-full shadow-lg ${className}`
+            ? `transition-all duration-[1s] ease shadow-lg ${className}`
             : ""
         }`}
       >

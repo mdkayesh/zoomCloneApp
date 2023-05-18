@@ -2,15 +2,13 @@ import React from "react";
 import { AiOutlineClose, AiOutlineExclamationCircle } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { Link } from "react-router-dom";
 import { UseCartContext } from "./Context/CartContext";
-import { UseProductContext } from "./Context/ProductContext";
 import Quantity from "./Quantity";
 import Button from "./Button";
 
 const Cart = () => {
   const {
-    cartProducts,
+    // cartProducts,
     removeFromCart,
     isCartOpen,
     cartOpen,
@@ -20,7 +18,9 @@ const Cart = () => {
 
   document.body.style.overflow = isCartOpen ? "hidden" : "auto";
 
-  const totalPrize = cartProducts.reduce((prev, curr) => {
+  const _cartProducts = JSON.parse(window.localStorage.getItem("cartProducts"));
+
+  const totalPrize = _cartProducts?.reduce((prev, curr) => {
     return prev + Number(curr.productPrize) * curr.amount;
   }, 0);
 
@@ -41,7 +41,7 @@ const Cart = () => {
 
         {/* cart Products */}
         <div className="flex flex-col gap-5 items-center overflow-auto py-3 h-[80%]">
-          {cartProducts.length <= 0 && (
+          {!_cartProducts?.length && (
             <div className="bg-[#FFF3CD] flex items-center px-1 py-3 w-full md:px-2">
               <AiOutlineExclamationCircle className="text-xl mr-1" />
               <p className="text-xs">
@@ -50,7 +50,7 @@ const Cart = () => {
             </div>
           )}
 
-          {cartProducts.map((product) => (
+          {_cartProducts?.map((product) => (
             <div className="flex gap-3 w-full relative" key={product.id}>
               <div className="img relative pb-[40%] pl-[40%] border">
                 <img

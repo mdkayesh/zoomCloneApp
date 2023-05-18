@@ -22,9 +22,11 @@ const LeftColumn = ({ productImages }) => {
   let len =
     WindowWidth() >= 768 ? productImages.length - 4 : productImages.length - 2;
 
+  const width = WindowWidth();
+
   useEffect(() => {
     setImgWidth(slideImg.current.offsetWidth);
-  }, [WindowWidth()]);
+  }, [width]);
 
   const slideChange = (n) => {
     setCounter((prev) => prev + n);
